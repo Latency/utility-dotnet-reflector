@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "ReflectorKG": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "users_min_default": "1",
+        "users_max_default": "30",
+        "version_default": "3",
+        "edition_default": "VSPro",
+        "editions_list": "Standard,VS,VSPro",
+        "ClientSettingsProvider.ServiceUri": ""
+      }
+    }
+  }
+}

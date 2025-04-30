@@ -1,7 +1,6 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
+﻿using ReflectorKG.Controls;
 
-namespace ReflectorKG
+namespace ReflectorKG.Forms
 {
     partial class FormAbout
     {
@@ -45,7 +44,7 @@ namespace ReflectorKG
             this.lbl_Edu = new System.Windows.Forms.Label();
             this.lbl_TPBLink = new System.Windows.Forms.LinkLabel();
             this.lnk_Github = new System.Windows.Forms.LinkLabel();
-            this.txt_Terms = new ReflectorKG.AetherxTextBox();
+            this.txt_Terms = new AetherxTextBox();
             ((System.ComponentModel.ISupportInitialize)(this.imgLogo)).BeginInit();
             this.SuspendLayout();
             // 
@@ -198,7 +197,7 @@ namespace ReflectorKG
         private PictureBox imgLogo;
         private Label lbl_Edu;
         private LinkLabel lbl_TPBLink;
-        private ReflectorKG.AetherxTextBox txt_Terms;
+        private AetherxTextBox txt_Terms;
         private LinkLabel lnk_Github;
     }
 }

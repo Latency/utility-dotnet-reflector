@@ -1,8 +1,4 @@
-﻿using System.Drawing;
-using System.Windows.Forms;
-using System.Configuration;
-
-namespace ReflectorKG
+﻿namespace ReflectorKG.Forms
 {
     partial class FormParent
     {

@@ -1,4 +1,4 @@
-﻿namespace ReflectorKG
+﻿namespace ReflectorKG.Controls
 {
     partial class AetherxTextBox
     {

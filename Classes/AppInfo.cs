@@ -1,126 +1,114 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml;
+﻿using System.Reflection;
 
-namespace ReflectorKG
+namespace ReflectorKG.Classes;
+
+/*
+     AppInfo
+        returns title, copyright, version, etc of Application.
+*/
+
+internal class AppInfo
 {
-
     /*
-         AppInfo 
-            returns title, copyright, version, etc of Application.
+        AppInfo -> Title
     */
 
-    class AppInfo
+    public static string Title
     {
-
-        /*
-            AppInfo -> Title
-        */
-
-        public static string Title
+        get
         {
-            get
-            {
-                AssemblyTitleAttribute title = (AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttribute(typeof(AssemblyTitleAttribute));
+            var title = (AssemblyTitleAttribute)Assembly.GetExecutingAssembly().GetCustomAttribute(typeof(AssemblyTitleAttribute));
 
-                if (title != null && !string.IsNullOrEmpty(title.Title))
-                    return title.Title;
+            if (title != null && !string.IsNullOrEmpty(title.Title))
+                return title.Title;
 
-                return string.Empty;
-            }
+            return string.Empty;
         }
+    }
 
-        /*
-            AppInfo -> Description
-        */
+    /*
+        AppInfo -> Description
+    */
 
-        public static string Description
+    public static string Description
+    {
+        get
         {
-            get
-            {
-                AssemblyDescriptionAttribute desc = (AssemblyDescriptionAttribute)Assembly.GetExecutingAssembly().GetCustomAttribute(typeof(AssemblyDescriptionAttribute));
+            var desc = (AssemblyDescriptionAttribute)Assembly.GetExecutingAssembly().GetCustomAttribute(typeof(AssemblyDescriptionAttribute));
 
-                if (desc != null && !string.IsNullOrEmpty(desc.Description))
-                    return desc.Description;
+            if (desc != null && !string.IsNullOrEmpty(desc.Description))
+                return desc.Description;
 
-                return string.Empty;
-            }
+            return string.Empty;
         }
+    }
 
-        /*
-            AppInfo -> Author
-        */
+    /*
+        AppInfo -> Author
+    */
 
-        public static string Trademark
+    public static string Trademark
+    {
+        get
         {
-            get
-            {
-                AssemblyTrademarkAttribute tm = (AssemblyTrademarkAttribute)Assembly.GetExecutingAssembly().GetCustomAttribute(typeof(AssemblyTrademarkAttribute));
+            var tm = (AssemblyTrademarkAttribute)Assembly.GetExecutingAssembly().GetCustomAttribute(typeof(AssemblyTrademarkAttribute));
 
-                if (tm != null && !string.IsNullOrEmpty(tm.Trademark))
-                    return tm.Trademark;
+            if (tm != null && !string.IsNullOrEmpty(tm.Trademark))
+                return tm.Trademark;
 
-                return string.Empty;
-            }
+            return string.Empty;
         }
+    }
 
-        /*
-            AppInfo -> Company
-        */
+    /*
+        AppInfo -> Company
+    */
 
-        public static string Company
+    public static string Company
+    {
+        get
         {
-            get
-            {
-                AssemblyCompanyAttribute comp = (AssemblyCompanyAttribute)Assembly.GetExecutingAssembly().GetCustomAttribute(typeof(AssemblyCompanyAttribute));
+            var comp = (AssemblyCompanyAttribute)Assembly.GetExecutingAssembly().GetCustomAttribute(typeof(AssemblyCompanyAttribute));
 
-                if (comp != null && !string.IsNullOrEmpty(comp.Company))
-                    return comp.Company;
+            if (comp != null && !string.IsNullOrEmpty(comp.Company))
+                return comp.Company;
 
-                return string.Empty;
-            }
+            return string.Empty;
         }
+    }
 
-        /*
-            AppInfo -> Copyright
-        */
+    /*
+        AppInfo -> Copyright
+    */
 
-        public static string Copyright
+    public static string Copyright
+    {
+        get
         {
-            get
-            {
-                AssemblyCopyrightAttribute cr = (AssemblyCopyrightAttribute)Assembly.GetExecutingAssembly().GetCustomAttribute(typeof(AssemblyCopyrightAttribute));
+            var cr = (AssemblyCopyrightAttribute)Assembly.GetExecutingAssembly().GetCustomAttribute(typeof(AssemblyCopyrightAttribute));
 
-                if (cr != null && !string.IsNullOrEmpty(cr.Copyright))
-                    return cr.Copyright;
+            if (cr != null && !string.IsNullOrEmpty(cr.Copyright))
+                return cr.Copyright;
 
-                return string.Empty;
-            }
+            return string.Empty;
         }
+    }
 
-        /*
-            AppInfo -> Version
-        */
+    /*
+        AppInfo -> Version
+    */
 
-        public static string Version
+    public static string Version
+    {
+        get
         {
-            get
-            {
-                Version _ver = Assembly.GetExecutingAssembly().GetName().Version;
-                string ver = _ver.Major + "." + _ver.Minor + "." + _ver.Build + "." + _ver.Revision;
+            var _ver = Assembly.GetExecutingAssembly().GetName().Version;
+            var ver  = $"{_ver.Major}.{_ver.Minor}.{_ver.Build}.{_ver.Revision}";
 
-                if (ver != null && !string.IsNullOrEmpty(ver))
-                    return ver.ToString();
+            if (ver != null && !string.IsNullOrEmpty(ver))
+                return ver;
 
-                return string.Empty;
-            }
+            return string.Empty;
         }
-
-
     }
 }

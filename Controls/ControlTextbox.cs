@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using System.ComponentModel;
+using System.Drawing.Drawing2D;
 
 /*
 
@@ -21,365 +14,297 @@ using System.Windows.Forms;
 
 */
 
-namespace ReflectorKG
+namespace ReflectorKG.Controls;
+
+[DefaultEvent("_TextChanged")]
+public partial class AetherxTextBox : UserControl
 {
+    /*
+        Fields
+    */
 
-    [DefaultEvent("_TextChanged")]
-    public partial class AetherxTextBox : UserControl
+    private Color borderColor = Color.MediumSlateBlue;
+    private int   borderSize  = 1;
+    private bool  isFocused;
+    private bool  underlineStyle;
+
+    /*
+        Constructor
+    */
+
+    public AetherxTextBox()
     {
+        InitializeComponent();
+    }
 
-        /*
-            Fields
-        */
+    /*
+        Properties > Border Color
+    */
 
-        private Color borderColor = Color.MediumSlateBlue;
-        private int borderSize = 1;
-        private bool underlineStyle = false;
-        private Color borderFocusColor = Color.HotPink;
-        private bool isFocused = false;
+    [Category("Aetherx")]
+    public Color BorderColor
+    {
+        get => borderColor;
 
-        /*
-            Constructor
-        */
-
-        public AetherxTextBox()
+        set
         {
-            InitializeComponent();
+            borderColor = value;
+            Invalidate();
         }
+    }
 
-        /*
-            Events
-        */
+    /*
+        Properties > Border Size
+    */
 
-        public event EventHandler _TextChanged;
+    [Category("Aetherx")]
+    public int BorderSize
+    {
+        get => borderSize;
 
-        /*
-            Properties > Border Color
-        */
-
-        [Category("Aetherx")]
-        public Color BorderColor
+        set
         {
-            get
-            {
-                return borderColor;
-            }
-
-            set
-            {
-                borderColor = value;
-                this.Invalidate();
-            }
+            borderSize = value;
+            Invalidate();
         }
+    }
 
-        /*
-            Properties > Border Size
-        */
+    /*
+        Properties > Underline Style
+    */
 
-        [Category("Aetherx")]
-        public int BorderSize
+    [Category("Aetherx")]
+    public bool UnderlineStyle
+    {
+        get => underlineStyle;
+
+        set
         {
-            get
-            {
-                return borderSize;
-            }
-
-            set
-            {
-                borderSize = value;
-                this.Invalidate();
-            }
+            underlineStyle = value;
+            Invalidate();
         }
+    }
 
-        /*
-            Properties > Underline Style
-        */
+    /*
+        Properties > Password Char
+    */
 
-        [Category("Aetherx")]
-        public bool UnderlineStyle
+    [Category("Aetherx")]
+    public bool PasswordChar
+    {
+        get => textBox1.UseSystemPasswordChar;
+        set => textBox1.UseSystemPasswordChar = value;
+    }
+
+    /*
+        Properties > Multiline
+    */
+
+    [Category("Aetherx")]
+    public bool Multiline
+    {
+        get => textBox1.Multiline;
+
+        set
         {
-            get
-            {
-                return underlineStyle;
-            }
-
-            set
-            {
-                underlineStyle = value;
-                this.Invalidate();
-            }
-        }
-
-        /*
-            Properties > Password Char
-        */
-
-        [Category("Aetherx")]
-        public bool PasswordChar
-        {
-            get { return textBox1.UseSystemPasswordChar; }
-            set { textBox1.UseSystemPasswordChar = value; }
-        }
-
-        /*
-            Properties > Multiline
-        */
-
-        [Category("Aetherx")]
-        public bool Multiline
-        {
-            get
-            {
-                return textBox1.Multiline;
-            }
-
-            set
-            {
-                textBox1.Multiline = value;
-                textBox1.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-                UpdateControlHeight();
-            }
-        }
-
-        /*
-            Properties > Readonly
-        */
-
-        [Category("Aetherx")]
-        public bool ReadOnly
-        {
-            get
-            {
-                return textBox1.ReadOnly;
-            }
-
-            set
-            {
-                textBox1.ReadOnly = value;
-            }
-        }
-
-        /*
-            Properties > Background Color
-        */
-
-        [Category("Aetherx")]
-        public override Color BackColor
-        {
-            get
-            {
-                return base.BackColor;
-            }
-
-            set
-            {
-                base.BackColor = value;
-                textBox1.BackColor = value;
-            }
-        }
-
-        /*
-            Properties > Foreground Color
-        */
-
-        [Category("Aetherx")]
-        public override Color ForeColor
-        {
-            get
-            {
-                return base.ForeColor;
-            }
-
-            set
-            {
-                base.ForeColor = value;
-                textBox1.ForeColor = value;
-            }
-        }
-
-        /*
-            Properties > Font
-        */
-
-        [Category("Aetherx")]
-        public override Font Font
-        {
-            get
-            {
-                return base.Font;
-            }
-
-            set
-            {
-                base.Font = value;
-                textBox1.Font = value;
-                if (this.DesignMode)
-                {
-                    UpdateControlHeight();
-                }
-            }
-        }
-
-        /*
-            Properties > Value (replaces Text)
-        */
-
-        [Category("Aetherx")]
-        public string Value
-        {
-            get
-            {
-                return textBox1.Text;
-            }
-
-            set
-            {
-                textBox1.Text = value;
-            }
-        }
-
-        /*
-            Properties > Focus Border Color
-        */
-
-        [Category("Aetherx")]
-        public Color BorderFocusColor
-        {
-            get
-            {
-                return borderFocusColor;
-            }
-
-            set
-            {
-                borderFocusColor = value;
-            }
-        }
-
-        /*
-            Override Methods > onPaint
-        */
-
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            Graphics graph = e.Graphics;
-
-            // Border
-            using (Pen penBorder = new Pen(borderColor, borderSize))
-            {
-                penBorder.Alignment = System.Drawing.Drawing2D.PenAlignment.Inset;
-
-                if (!isFocused)
-                {
-                    if (underlineStyle)
-                    {
-                        // underline
-                        graph.DrawLine(penBorder, 0, this.Height - 1, this.Width, this.Height - 1);
-                    }
-                    else
-                    {
-                        // normal style
-                        graph.DrawRectangle(penBorder, 0, 0, this.Width - 0.5F, this.Height - 0.5F);
-                    }
-                }
-                else
-                {
-
-                    penBorder.Color = borderFocusColor;
-
-                    if (underlineStyle)
-                    {
-                        // underline
-                        graph.DrawLine(penBorder, 0, this.Height - 1, this.Width, this.Height - 1);
-                    }
-                    else
-                    {
-                        // normal style
-                        graph.DrawRectangle(penBorder, 0, 0, this.Width - 0.5F, this.Height - 0.5F);
-                    }
-                }
-            }
-        }
-
-        /*
-            Override Methods > onResize
-        */
-
-        protected override void OnResize(EventArgs e)
-        {
-            base.OnResize(e);
-            if (this.DesignMode)
-            {
-                UpdateControlHeight();
-            }
-        }
-
-        /*
-            Override Methods > onLoad
-        */
-
-        protected override void OnLoad(EventArgs e)
-        {
-            base.OnLoad(e);
+            textBox1.Multiline  = value;
+            textBox1.ScrollBars = ScrollBars.Both;
             UpdateControlHeight();
         }
+    }
 
-        /*
-            Override Methods > Update Control Height
-        */
+    /*
+        Properties > Readonly
+    */
 
-        private void UpdateControlHeight()
+    [Category("Aetherx")]
+    public bool ReadOnly
+    {
+        get => textBox1.ReadOnly;
+        set => textBox1.ReadOnly = value;
+    }
+
+    /*
+        Properties > Background Color
+    */
+
+    [Category("Aetherx")]
+    public override Color BackColor
+    {
+        get => base.BackColor;
+        set
         {
-            if (textBox1.Multiline == false)
-            {
-                int txtHeight = TextRenderer.MeasureText("Text", this.Font).Height + 1;
-                textBox1.Multiline = true;
-                textBox1.MinimumSize = new Size(0, txtHeight);
-                textBox1.Multiline = false;
+            base.BackColor     = value;
+            textBox1.BackColor = value;
+        }
+    }
 
-                this.Height = textBox1.Height + this.Padding.Top + this.Padding.Bottom;
+    /*
+        Properties > Foreground Color
+    */
+
+    [Category("Aetherx")]
+    public override Color ForeColor
+    {
+        get => base.ForeColor;
+        set
+        {
+            base.ForeColor     = value;
+            textBox1.ForeColor = value;
+        }
+    }
+
+    /*
+        Properties > Font
+    */
+
+    [Category("Aetherx")]
+    public override Font Font
+    {
+        get => base.Font;
+        set
+        {
+            base.Font     = value;
+            textBox1.Font = value;
+            if (DesignMode)
+                UpdateControlHeight();
+        }
+    }
+
+    /*
+        Properties > Value (replaces Text)
+    */
+
+    [Category("Aetherx")]
+    public string Value
+    {
+        get => textBox1.Text;
+        set => textBox1.Text = value;
+    }
+
+    /*
+        Properties > Focus Border Color
+    */
+
+    [Category("Aetherx")]
+    public Color BorderFocusColor { get; set; } = Color.HotPink;
+
+    /*
+        Events
+    */
+
+    public event EventHandler _TextChanged;
+
+    /*
+        Override Methods > onPaint
+    */
+
+    protected override void OnPaint(PaintEventArgs e)
+    {
+        base.OnPaint(e);
+        var graph = e.Graphics;
+
+        // Border
+        using (var penBorder = new Pen(borderColor, borderSize))
+        {
+            penBorder.Alignment = PenAlignment.Inset;
+
+            if (!isFocused)
+            {
+                if (underlineStyle)
+                    // underline
+                    graph.DrawLine(penBorder, 0, Height - 1, Width, Height - 1);
+                else
+                    // normal style
+                    graph.DrawRectangle(penBorder, 0, 0, Width - 0.5F, Height - 0.5F);
+            }
+            else
+            {
+                penBorder.Color = BorderFocusColor;
+
+                if (underlineStyle)
+                    // underline
+                    graph.DrawLine(penBorder, 0, Height - 1, Width, Height - 1);
+                else
+                    // normal style
+                    graph.DrawRectangle(penBorder, 0, 0, Width - 0.5F, Height - 0.5F);
             }
         }
+    }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-            if (_TextChanged != null)
-            {
-                _TextChanged.Invoke(sender, e);
-            }
-        }
+    /*
+        Override Methods > onResize
+    */
 
-        private void textBox1_Click(object sender, EventArgs e)
-        {
-            this.OnClick(e);
-        }
+    protected override void OnResize(EventArgs e)
+    {
+        base.OnResize(e);
+        if (DesignMode)
+            UpdateControlHeight();
+    }
 
-        private void textBox1_MouseEnter(object sender, EventArgs e)
-        {
-            this.OnMouseEnter(e);
-        }
+    /*
+        Override Methods > onLoad
+    */
 
-        private void textBox1_MouseLeave(object sender, EventArgs e)
-        {
-            this.OnMouseLeave(e);
-        }
+    protected override void OnLoad(EventArgs e)
+    {
+        base.OnLoad(e);
+        UpdateControlHeight();
+    }
 
-        private void textBox1_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            this.OnKeyPress(e);
-        }
+    /*
+        Override Methods > Update Control Height
+    */
 
-        private void textBox1_Enter(object sender, EventArgs e)
+    private void UpdateControlHeight()
+    {
+        if (textBox1.Multiline == false)
         {
-            isFocused = true;
-            this.Invalidate();
-        }
+            var txtHeight = TextRenderer.MeasureText("Text", Font).Height + 1;
+            textBox1.Multiline   = true;
+            textBox1.MinimumSize = new Size(0, txtHeight);
+            textBox1.Multiline   = false;
 
-        private void textBox1_Leave(object sender, EventArgs e)
-        {
-            isFocused = false;
-            this.Invalidate();
+            Height = textBox1.Height + Padding.Top + Padding.Bottom;
         }
+    }
+
+    private void textBox1_TextChanged(object? sender, EventArgs e)
+    {
+        if (_TextChanged != null)
+            _TextChanged.Invoke(sender, e);
+    }
+
+    private void textBox1_Click(object? sender, EventArgs e)
+    {
+        OnClick(e);
+    }
+
+    private void textBox1_MouseEnter(object? sender, EventArgs e)
+    {
+        OnMouseEnter(e);
+    }
+
+    private void textBox1_MouseLeave(object? sender, EventArgs e)
+    {
+        OnMouseLeave(e);
+    }
+
+    private void textBox1_KeyPress(object? sender, KeyPressEventArgs e)
+    {
+        OnKeyPress(e);
+    }
+
+    private void textBox1_Enter(object? sender, EventArgs e)
+    {
+        isFocused = true;
+        Invalidate();
+    }
+
+    private void textBox1_Leave(object? sender, EventArgs e)
+    {
+        isFocused = false;
+        Invalidate();
     }
 }
