@@ -28,40 +28,40 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.SuspendLayout();
+            textBox1 = new TextBox();
+            SuspendLayout();
             // 
             // textBox1
             // 
-            this.textBox1.BackColor = System.Drawing.SystemColors.Window;
-            this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(0, 0);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(0);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(250, 22);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Click += new System.EventHandler(this.textBox1_Click);
-            this.textBox1.TextChanged += new System.EventHandler(this.textBox1_TextChanged);
-            this.textBox1.Enter += new System.EventHandler(this.textBox1_Enter);
-            this.textBox1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBox1_KeyPress);
-            this.textBox1.Leave += new System.EventHandler(this.textBox1_Leave);
-            this.textBox1.MouseEnter += new System.EventHandler(this.textBox1_MouseEnter);
-            this.textBox1.MouseLeave += new System.EventHandler(this.textBox1_MouseLeave);
+            textBox1.BackColor = SystemColors.Window;
+            textBox1.BorderStyle = BorderStyle.None;
+            textBox1.Dock = DockStyle.Fill;
+            textBox1.Location = new Point(0, 0);
+            textBox1.Margin = new Padding(0);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(250, 22);
+            textBox1.TabIndex = 0;
+            textBox1.Click += textBox1_Click;
+            textBox1.TextChanged += textBox1_TextChanged;
+            textBox1.Enter += textBox1_Enter;
+            textBox1.KeyPress += textBox1_KeyPress;
+            textBox1.Leave += textBox1_Leave;
+            textBox1.MouseEnter += textBox1_MouseEnter;
+            textBox1.MouseLeave += textBox1_MouseLeave;
             // 
             // AetherxTextBox
             // 
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
-            this.AutoScroll = true;
-            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
-            this.Controls.Add(this.textBox1);
-            this.Font = new System.Drawing.Font("Segoe UI", 12F);
-            this.ForeColor = System.Drawing.Color.DimGray;
-            this.Margin = new System.Windows.Forms.Padding(0);
-            this.Name = "AetherxTextBox";
-            this.Size = new System.Drawing.Size(250, 24);
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            AutoScaleMode = AutoScaleMode.None;
+            AutoScroll = true;
+            BackColor = Color.FromArgb(30, 30, 30);
+            Controls.Add(textBox1);
+            Font = new Font("Segoe UI", 12F);
+            ForeColor = Color.DimGray;
+            Margin = new Padding(0);
+            Name = "AetherxTextBox";
+            Size = new Size(250, 24);
+            ResumeLayout(false);
+            PerformLayout();
 
         }
 
